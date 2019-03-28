@@ -1,6 +1,6 @@
 item {
   id: 1
-i  name: 'cat'
+  name: 'cat'
 }
 item {
   id: 2
