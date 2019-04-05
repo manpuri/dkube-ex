@@ -118,7 +118,17 @@ def main(unused_argv):
     input_type = 'image_tensor'
     export_dir = FLAGS.model_dir + '/inference'
     trained_checkpoint_prefix = tf.train.latest_checkpoint(FLAGS.model_dir, latest_filename=None)
-    exporter.export_inference_graph(
+    if os.getenv('TF_CONFIG') != '':
+        config = json.loads(os.getenv('TF_CONFIG'))
+        if config['task']['type'] == 'master':
+            exporter.export_inference_graph(
+                input_type, pipeline_config,
+                trained_checkpoint_prefix,
+                export_dir,
+                input_shape=input_shape,
+                write_inference_graph=False)
+    else:
+        exporter.export_inference_graph(
             input_type, pipeline_config,
             trained_checkpoint_prefix,
             export_dir,
