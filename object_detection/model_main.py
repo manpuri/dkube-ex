@@ -19,7 +19,7 @@ from __future__ import division
 from __future__ import print_function
 
 from absl import flags
-
+import json
 import tensorflow as tf
 import tarfile
 import os
